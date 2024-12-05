@@ -24,20 +24,20 @@ jobs:
 
       - name: Terraform Format
         id: fmt
-        run: terraform fmt -check
+        run: echo "OUTCOME=$(terraform fmt -check)" >> $GITHUB_OUTPUT
 
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: echo "OUTCOME=$(terraform init)" >> $GITHUB_OUTPUT
       
       - name: Terraform Validate
         id: validate
-        run: terraform validate -no-color
+        run: echo "OUTCOME=$(terraform validate -no-color)" >> $GITHUB_OUTPUT
 
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color -input=false
+        run: echo "OUTCOME=$(terraform plan -no-color -input=false)" >> $GITHUB_OUTPUT
         continue-on-error: true
 
       - name: Update Pull Request
@@ -48,10 +48,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
-            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.OUTCOME }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.init.OUTCOME }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.OUTCOME }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.OUTCOME }}\`
 
             <details><summary>Show Plan</summary>
 
