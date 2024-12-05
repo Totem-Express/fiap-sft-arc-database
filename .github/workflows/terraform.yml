@@ -24,20 +24,20 @@ jobs:
 
       - name: Terraform Format
         id: fmt
-        run: echo "OUTCOME=$(terraform fmt -check)" >> $GITHUB_OUTPUT
+        run: echo "FMT_OUTPUT=$(terraform fmt -check)" >> $GITHUB_ENV
 
       - name: Terraform Init
         id: init
-        run: echo "OUTCOME=$(terraform init)" >> $GITHUB_OUTPUT
+        run: echo "INIT_OUTPUT=$(terraform init)" >> $GITHUB_ENV
       
       - name: Terraform Validate
         id: validate
-        run: echo "OUTCOME=$(terraform validate -no-color)" >> $GITHUB_OUTPUT
+        run: echo "VALIDATE_OUTPUT=$(terraform validate -no-color)" >> $GITHUB_ENV
 
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: echo "OUTCOME=$(terraform plan -no-color -input=false)" >> $GITHUB_OUTPUT
+        run: echo "PLAN_OUTPUT=$(terraform plan -no-color -input=false)" >> $GITHUB_ENV
         continue-on-error: true
 
       - name: Update Pull Request
@@ -48,10 +48,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.OUTCOME }}\`
-            #### Terraform Initialization ⚙️\`${{ steps.init.OUTCOME }}\`
-            #### Terraform Validation 🤖\`${{ steps.validate.OUTCOME }}\`
-            #### Terraform Plan 📖\`${{ steps.plan.OUTCOME }}\`
+            const output = `#### Terraform Format and Style 🖌\`$FMT_OUTPUT\`
+            #### Terraform Initialization ⚙️\`$INIT_OUTPUT\`
+            #### Terraform Validation 🤖\`$VALIDATE_OUTPUT\`
+            #### Terraform Plan 📖\`$PLAN_OUTPUT\`
 
             <details><summary>Show Plan</summary>
 
