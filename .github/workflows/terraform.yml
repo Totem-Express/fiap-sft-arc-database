@@ -26,27 +26,27 @@ jobs:
         id: fmt
         run: |
           {
-            echo 'FMT_OUTPUT<<EOF'
+            echo 'FMT_OUTPUT<<DELIMITADOR'
             terraform fmt -check
-            echo EOF
+            echo DELIMITADOR
           } >> "$GITHUB_ENV"
 
       - name: Terraform Init
         id: init
         run: |
           {
-            echo 'INIT_OUTPUT<<EOF'
+            echo 'INIT_OUTPUT<<DELIMITADOR'
             terraform init
-            echo EOF
+            echo DELIMITADOR
           } >> "$GITHUB_ENV"
       
       - name: Terraform Validate
         id: validate
         run: |
           {
-            echo 'VALIDATE_OUTPUT<<EOF'
+            echo 'VALIDATE_OUTPUT<<DELIMITADOR'
             terraform validate -no-color
-            echo EOF
+            echo DELIMITADOR
           } >> "$GITHUB_ENV"
 
       - name: Terraform Plan
@@ -54,9 +54,9 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           {
-            echo 'PLAN_OUTPUT<<EOF'
+            echo 'PLAN_OUTPUT<<DELIMITADOR'
             terraform plan -no-color -input=false
-            echo EOF
+            echo DELIMITADOR
           } >> "$GITHUB_ENV"
         continue-on-error: true
 
