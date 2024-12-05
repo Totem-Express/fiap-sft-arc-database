@@ -4,6 +4,11 @@ variable "aws_region" {
   default = "us-west-1"
 }
 
+variable "db_version" {
+  description = "Database version"
+  type        = string
+}
+
 variable "db_name" {
   description = "Database name"
   type        = string
