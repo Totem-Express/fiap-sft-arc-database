@@ -24,20 +24,32 @@ jobs:
 
       - name: Terraform Format
         id: fmt
-        run: echo "FMT_OUTPUT=$(terraform fmt -check)" >> $GITHUB_ENV
+        run: |
+          {
+            echo "FMT_OUTPUT=$(terraform fmt -check)"
+          } >> "$GITHUB_ENV
 
       - name: Terraform Init
         id: init
-        run: echo "INIT_OUTPUT=$(terraform init)" >> $GITHUB_ENV
+        run: |
+          {
+            echo "INIT_OUTPUT=$(terraform init)"
+          } >> $GITHUB_ENV
       
       - name: Terraform Validate
         id: validate
-        run: echo "VALIDATE_OUTPUT=$(terraform validate -no-color)" >> $GITHUB_ENV
+        run: |
+          {
+            echo "VALIDATE_OUTPUT=$(terraform validate -no-color)" 
+          } >> $GITHUB_ENV
 
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: echo "PLAN_OUTPUT=$(terraform plan -no-color -input=false)" >> $GITHUB_ENV
+        run: |
+          {
+            echo "PLAN_OUTPUT=$(terraform plan -no-color -input=false)"
+          } >> $GITHUB_ENV
         continue-on-error: true
 
       - name: Update Pull Request
