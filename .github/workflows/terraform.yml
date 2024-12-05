@@ -29,7 +29,7 @@ jobs:
             echo 'FMT_OUTPUT<<EOF'
             terraform fmt -check
             echo EOF
-          } >> "$GITHUB_ENV
+          } >> "$GITHUB_ENV"
 
       - name: Terraform Init
         id: init
@@ -38,7 +38,7 @@ jobs:
             echo 'INIT_OUTPUT<<EOF'
             terraform init
             echo EOF
-          } >> $GITHUB_ENV
+          } >> "$GITHUB_ENV"
       
       - name: Terraform Validate
         id: validate
@@ -47,7 +47,7 @@ jobs:
             echo 'VALIDATE_OUTPUT<<EOF'
             terraform validate -no-color
             echo EOF
-          } >> $GITHUB_ENV
+          } >> "$GITHUB_ENV"
 
       - name: Terraform Plan
         id: plan
@@ -57,7 +57,7 @@ jobs:
             echo 'PLAN_OUTPUT<<EOF'
             terraform plan -no-color -input=false
             echo EOF
-          } >> $GITHUB_ENV
+          } >> "$GITHUB_ENV"
         continue-on-error: true
 
       - name: Update Pull Request
