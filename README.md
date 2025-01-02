@@ -9,7 +9,7 @@ O código da aplicação se encontra [aqui](https://github.com/geggr/software-ar
 
 # Por que da escolha do MySQL
 
-O banco relacional usado por grandes empresas TODO colocar aqui o artigo da uber e facebook(?) e consegue uma boa escala principalmente no transacional. 
+O banco relacional usado por grandes empresas([Uber](https://www.uber.com/en-BR/blog/postgres-to-mysql-migration/) e [Shopify](https://shopify.engineering/shopify-manages-petabyte-scale-mysql-backup-restore#)) e consegue uma boa escala principalmente no transacional. 
 Outro fator foi a facilidade de encontrar soluções para problemas na comunidade extensa e que a equipe está bem familiariazada com ele.
 
 Caso no futuro precisarmos também podemos ir para o AWS Aurora que é compativel com ele.  
